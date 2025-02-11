@@ -3,9 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session,json
 import sqlite3
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_session import Session
-from functools import wraps
 import functions
-import time
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
@@ -26,14 +24,6 @@ with get_db_connection() as conn:
             username TEXT NOT NULL, 
             hash TEXT NOT NULL)
     """)
-
-def login_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if session.get("user_id") is None:
-            return redirect("/login")
-        return f(*args, **kwargs)
-    return decorated_function
 
 @app.route('/')
 def home():
