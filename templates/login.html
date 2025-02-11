@@ -1,23 +1,37 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Login 
+Login
+<link rel="stylesheet" href="/static/styles.css">
 {% endblock %}
 
 {% block main %}
-
-<h5>New User? Please <a class="nav-link" href="/register">Register</a></h5>
-    
-    <form action="/login" method="POST">
-        
-        <a class="list-group-item list-group-item-action" href="/register">Register</a>
-        <a class="list-group-item list-group-item-action" href="/login">Login</a>
+<div class="height"></div>
+<div class="loginbox">
+    <form action="/login" method="POST" class="border">
+        <span>Login</span>
+        <div class="seperation"></div>
+        <div class="space"></div>
+        <div class="username">Username</div>
         <div class="mb-3">
-            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" name="username" placeholder="Username" type="text" required>
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto enter" name="username"
+                placeholder="Enter your username" type="text" required>
         </div>
+        <div class="space2"></div>
+        <div class="username">Password</div>
         <div class="mb-3">
-            <input class="form-control mx-auto w-auto" name="password" placeholder="Password" type="password" required>
+            <input class="form-control mx-auto w-auto enter" name="password" placeholder="Password" type="password"
+                required>
         </div>
-        <button class="btn btn-primary" type="submit">Log In</button>
+        <div class="button-container">
+            <button class="primary" type="submit">Submit</button>
+        </div>
     </form>
+</div>
+<div class="button">
+    <span class="reg">
+        New User?
+        <a class="newuser" href="/register">Register</a>
+    </span>
+</div>
 {% endblock %}
