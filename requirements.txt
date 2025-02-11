@@ -6,3 +6,4 @@ youtubesearchpython==1.6.6
 screen-brightness-control==0.9.0
 pycaw==2023.8.30
 comtypes==1.2.0
+gunicorn==20.1.0
