@@ -79,15 +79,17 @@ span {
 }
 
 .seperation {
-    width: 102.5%;
-    height: 2;
+    width: 103%;
+    height: 2px;
     background-color: white;
     margin: 0 auto 15px auto;
     position: absolute;
     top: 44px;
     left: -4px;
+    z-index: 10;
 }
-.button{
+
+.button {
     max-width: 60vw;
     justify-content: center;
     margin: auto;
@@ -95,7 +97,112 @@ span {
     align-items: center;
     height: 100px;
 }
-.newuser{
+
+.newuser {
     text-decoration: none;
-    color:#dda7a7;
+    color: #dda7a7;
+}
+
+.manual {
+    height: 200px;
+    width: 200px;
+    border: 3px solid black;
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    border-radius: 6px;
+    flex-direction: column;
+    color: rgb(241, 230, 230);
+}
+
+.manualcontainer {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    left: 100px;
+    bottom: -200px;
+}
+
+.prompt {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.prompt1 {
+    height: 30px;
+    width: 30%;
+    font-size: 19px;
+    border: 3px solid black;
+    border-radius: 6px;
+    background-color: #916F6F;
+    color: black;
+}
+
+.btn-primary {
+    height: 30px;
+    width: 8%;
+    font-size: 19px;
+    border: 3px solid black;
+    border-radius: 6px;
+    background-color: #916F6F;
+
+}
+
+.prompt1::placeholder {
+    color: black;
+    opacity: 1;
+    font-size: 16px;
+}
+
+.space3 {
+    height: 30vh;
+}
+
+.searchquery {
+    letter-spacing: 1px;
+}
+
+.logout {
+    color: white;
+    text-decoration: none;
+}
+
+.log {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.link {
+    position: relative;
+    text-decoration: none;
+    color: black;
+    font-size: calc(30*0.4vh);
+}
+
+.circle {
+    z-index: 10;
+    position: relative;
+    margin-top: 20px;
+    width: 40vh;
+    height: 40vh;
+    border-radius: 50%;
+}
+
+.pos {
+    display: flex;
+    justify-content: right;
+}
+
+.line {
+    position: absolute;
+    border: 4px solid;
+    padding: 5%;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: -22vh;
+    border-color: rgb(255, 251, 251);
+    width: 69%;
+    height: 34vh;
 }
