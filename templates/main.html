@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Marin 
+{% endblock %}
+
+{% block main %}    
+    <form action="/main" method="POST">
+        
+        <a class="list-group-item list-group-item-action" href="/text">Text</a>
+        <a class="list-group-item list-group-item-action" href="/voice">Voice</a>
+        
+    </form>
+{% endblock %}
