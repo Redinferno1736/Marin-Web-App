@@ -3,8 +3,9 @@ from youtubesearchpython import VideosSearch
 import os
 import screen_brightness_control as sbc
 import ctypes
-from comtypes import CLSCTX_ALL
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
+import comtypes
+from comtypes import CLSCTX_ALL
 
 def search(text):
     t= text.replace("search for", "")
@@ -42,22 +43,37 @@ def openapp(text):
 
 def set_volume(level):
     """Set system volume using Pycaw."""
+    comtypes.CoInitialize()  # Initialize COM before using Pycaw
+
     devices = AudioUtilities.GetSpeakers()
     interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None) 
     volume = ctypes.cast(interface, ctypes.POINTER(IAudioEndpointVolume))
-
+    
     volume.SetMasterVolumeLevelScalar(level / 100.0, None)
 
-def tools(text):
-    dict={"zero":0,"one":1,"two":2,"three":3,"four":4}
-    newtext= text.split()
-    value=newtext[-1]
-    try:
-        a=int(value)
-    except:
-        a=dict[value]
+    comtypes.CoUninitialize()
 
-    if newtext[1]=="brightness":
+def tools(text):
+    mapping = {"zero": 0, "one": 1, "two": 2, "three": 3, "four": 4}
+    newtext = text.split()
+    
+    # Ensure that at least two words exist in the text
+    if len(newtext) < 3:
+        print("Invalid command format")
+        return
+    
+    value = newtext[-1]  # Extract the last word (expected number)
+
+    try:
+        a = int(value)
+    except ValueError:
+        a = mapping.get(value.lower(), None)  # Get the mapped value or None
+
+    if a is None:
+        print(f"Invalid number: {value}")
+        return
+
+    if "brightness" in newtext:
         sbc.set_brightness(a)
-    else:
+    elif "volume" in newtext:
         set_volume(a)

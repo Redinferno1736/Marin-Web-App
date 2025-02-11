@@ -121,7 +121,9 @@ def textfn():
     text = request.form.get("prompt")
     if not text: 
         flash("No text received!")
-        return render_template("text.html") 
+        return render_template("text.html")
+     
+    text=text.lower()
     perform(text)
     return render_template("text.html")
 

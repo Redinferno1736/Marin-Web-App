@@ -1,28 +1,40 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Register
+Register
 {% endblock %}
 
 {% block main %}
-
-<form action="/register" method="POST">
-    
-    <a class="list-group-item list-group-item-action" href="/register">Register</a>
-    <a class="list-group-item list-group-item-action" href="/login">Login</a>
-    <div class="form-group">
-        <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text" required>
-    </div>
-    <br>
-    <div class="form-group">
-        <input class="form-control" name="password" placeholder="Create Password" type="password" required>
-    </div>
-    <br>
-    <div class="form-group">
-        <input class="form-control" name="confirm" placeholder="Confirm Password" type="password" required>
-    </div>
-    <br>
-    <button class="btn btn-primary" type="submit">Register</button>
-</form>
-{% endblock %}
-
+<div class="height"></div>
+<div class="loginbox">
+    <form action="/register" method="POST" class="border">
+        <span>Register</span>
+        <div class="seperation"></div>
+        <div class="space"></div>
+        <div class="username">Username</div>
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control enter" name="username" placeholder="Username" type="text"
+                required>
+        </div>
+        <div class="space"></div>
+        <div class="username">Password</div>
+        <div class="form-group">
+            <input class="form-control enter" name="password" placeholder="Create Password" type="password" required>
+        </div>
+        <div class="space"></div>
+        <div class="username">Confirm Password</div>
+        <div class="form-group">
+            <input class="form-control enter" name="confirm" placeholder="Confirm Password" type="password" required>
+        </div>
+        <div class="button-container">
+            <button class="primary" type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+<div class="button">
+    <span class="reg">
+        Already Registered?
+        <a class="newuser" href="/login">Login</a>
+    </span>
+</div>
+{% endblock %}
