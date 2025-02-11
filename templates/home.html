@@ -1,18 +1,27 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}
-    Marin-HomePage 
-{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marin-HomePage</title>
+    <link rel="stylesheet" href="/static/home.css">
+</head>
 
-{% block main %}
-
-<h5>New User? Please <a class="nav-link" href="/register">Register</a></h5>
-    
-    <form action="/" method="POST">
-        
-        <a class="list-group-item list-group-item-action" href="/register">Register</a>
+<body>
+    <div class="main">
         <a class="list-group-item list-group-item-action" href="/login">Login</a>
-        <h1>Marin</h1>
-        <h3>Personal Assistant</h3>
-    </form>
-{% endblock %}
+        <a class="list-group-item list-group-item-action" href="/register">Register</a>
+    </div>
+    <div class="box">
+        <div class="will">
+            <h1>Marin</h1>
+        </div>
+    </div>
+    <footer class="down">
+        <h4>Tired to do open a website ?-Marin has you covered,it automatically does whatever you ask it to with a simple voice command</h4>
+    </footer>
+
+</body>
+
+</html>

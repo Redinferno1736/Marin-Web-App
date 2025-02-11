@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marin</title>
+    <title>{% block title %}Marin{% endblock %}</title>
     <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="/static/styles.css">
 </head>
 <body>
-    {% block main %}{% endblock %}
+    <nav class="main">
+        <div class="log">
+            <span>Marin</span>
+            {% if session["user_id"] %}
+                <a href="/logout" class="logout">Log Out</a>
+            {% endif %}
+        </div>
+        {% block main %}{% endblock %}
+    </nav>
 </body>
 </html>

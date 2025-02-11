@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Text
+
+{% endblock %}
+
+{% block main %}
+<div class="space3"></div>
+<form action="/text" method="POST" class="prompt">
+    <input class="prompt1" name="prompt" placeholder="Type Here..." type="text">
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+<footer class="manualcontainer">
+    <div class="manual">
+        <h3 class="searchquery">Search</h3>
+        <div class="space2"></div>
+        <div class="space2"></div>
+        <div>
+            Say "Search for [query]" to open a Google search for your query.<br>
+            📌 Example: "Search for Chess"
+        </div>
+    </div>
+    <div class="manual">
+        <h3 class="searchquery">Play</h3>
+        <div class="space2"></div>
+        <div class="space2"></div>
+        <div>
+            Say "Play [video name]" to search and play the top YouTube video.<br>
+            📌 Example: "Play Arcade"
+        </div>
+    </div>
+    <div class="manual">
+        <h3 class="searchquery">Open</h3>
+        <div class="space2"></div>
+        <div class="space2"></div>
+        <div>
+            Say "Open [app]" to launch a built-in Windows app.<br>
+            📌 Example: "Open Notepad"
+        </div>
+    </div>
+    <div class="manual">
+        <h3 class="searchquery">Open2.0</h3>
+        <div class="space2"></div>
+        <div class="space2"></div>
+        <div>
+            Say "Open [folder name]" to locate and open a folder on your system.<br>
+            📌 Example: "Open Downloads folder"
+        </div>
+    </div>
+    <div class="manual">
+        <h3 class="searchquery">Set Volume</h3>
+        <div class="space2"></div>
+        <div class="space2"></div>
+        <div>
+            Say "Set volume to [level]" to adjust system volume.<br>
+            📌 Example: "Set volume to 50"
+        </div>
+    </div>
+    <div class="manual">
+        <h3 class="searchquery">Set Brightness</h3>
+        <div class="space2"></div>
+        <div class="space2"></div>
+        <div>
+            Say "Set brightness to [level]" to adjust screen brightness.<br>
+            📌 Example: "Set brightness to 70"
+        </div>
+    </div>
+</footer>
+{% endblock %}

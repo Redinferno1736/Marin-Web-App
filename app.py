@@ -1,9 +1,11 @@
 import requests
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session,jsonify
 import sqlite3
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_session import Session
 from functools import wraps
+import functions
+import time
 
 app = Flask(__name__)
 app.secret_key = "your_secret_key"
@@ -53,7 +55,7 @@ def register():
         try:
             with get_db_connection() as conn:
                 db = conn.cursor()
-                db.execute("INSERT INTO users (username, hash,LeetUsername) VALUES (?, ?,?)", (username, hash,"1"))
+                db.execute("INSERT INTO users (username, hash) VALUES (?, ?)", (username, hash))
                 conn.commit()
             return redirect('/login')
         except sqlite3.IntegrityError as e:
@@ -87,11 +89,61 @@ def login():
             return render_template("login.html")
 
         session["user_id"] = rows[0]["id"]
-        return redirect("/data")
+        return redirect("/main")
     return render_template("login.html")
-
 
 @app.route('/logout', methods=["GET", "POST"])
 def logout():
     session.clear()
     return redirect("/")
+
+@app.route('/main', methods=["GET", "POST"])
+def mainpage():
+    return render_template("main.html")
+
+def perform(text):
+    if text.startswith("search for") or text.startswith("Search for"):
+        functions.search(text)
+
+    elif text.startswith("play") or text.startswith("Play"):   
+        functions.play(text)
+
+    elif text.startswith("open") or text.startswith("Open"):
+        if text.endswith("folder") or text.startswith("Folder"):
+            functions.find_folder(text)
+        functions.openapp(text)
+
+    elif text.startswith("Set") or text.startswith("set"):
+        functions.tools(text)
+
+@app.route('/text', methods=["GET", "POST"])
+def textfn():
+    text = request.form.get("prompt")
+    if not text: 
+        flash("No text received!")
+        return render_template("text.html")
+     
+    text=text.lower()
+    perform(text)
+    return render_template("text.html")
+
+@app.route("/voice", methods=["GET", "POST"])
+def process_text():
+    if request.method == "GET":
+        return render_template("voice.html") 
+    if not request.is_json:
+        return jsonify({"error": "Unsupported Media Type"}), 415
+
+    data = request.get_json()
+
+    if not data or "text" not in data or not data["text"].strip():
+        return jsonify({"message": "No voice received!"}), 400
+
+    text = data["text"].strip()
+    print("Received voice command:", text)
+    text=text.lower()
+    if text.endswith("."):
+        text=text[:-1]
+    perform(text)  
+
+    return jsonify({"message": "Command processed successfully!"})
