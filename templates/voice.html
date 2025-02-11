@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Voice
+{% endblock %}
+
+{% block main %}
+<form action="/voice" method="POST">
+    <button id="startRecord" type="button">Start Recording</button>
+    <button id="stopRecord" disabled type="button">Stop Recording</button>
+    <button id="submitText" type="button">Submit</button>
+    <p id="statusText">Press the button and speak...</p>
+    <p id="resultText"></p>
+    <script>
+        let recognition;
+        let recognizedText = "";  // Store recognized text
+
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+        } else if ('SpeechRecognition' in window) {
+            recognition = new SpeechRecognition();
+        } else {
+            alert("Your browser does not support speech recognition. Try using Chrome.");
+        }
+
+        if (recognition) {
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = () => {
+                document.getElementById("statusText").textContent = "Listening...";
+                document.getElementById("startRecord").disabled = true;
+                document.getElementById("stopRecord").disabled = false;
+                recognizedText = "";  // Reset recognized text
+            };
+
+            recognition.onresult = (event) => {
+                recognizedText = event.results[0][0].transcript;
+                console.log("Recognized Text:", recognizedText);  // Debugging line
+                document.getElementById("resultText").textContent = `Recognized: ${recognizedText}`;
+            };
+
+            recognition.onerror = (event) => {
+                console.error("Speech Recognition Error:", event.error);
+                document.getElementById("statusText").textContent = "Error: " + event.error;
+            };
+
+            recognition.onend = () => {
+                document.getElementById("startRecord").disabled = false;
+                document.getElementById("stopRecord").disabled = true;
+
+                if (recognizedText.trim()) {
+                    sendTextToBackend(recognizedText);  // Send text only if recognized
+                } else {
+                    document.getElementById("statusText").textContent = "No voice detected!";
+                }
+            };
+
+            document.getElementById("startRecord").onclick = () => recognition.start();
+            document.getElementById("stopRecord").onclick = () => recognition.stop();
+        }
+
+        function sendTextToBackend(text) {
+            fetch("/voice", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },  // ✅ Ensure JSON content type
+                body: JSON.stringify({ text: text })  // ✅ Send text as JSON
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("statusText").textContent = data.message;
+                })
+                .catch(error => {
+                    document.getElementById("statusText").textContent = "Error: " + error;
+                });
+        }
+
+        // Submit Button Handling
+        document.getElementById("submitText").onclick = () => {
+            if (recognizedText.trim()) {
+                sendTextToBackend(recognizedText);
+            } else {
+                document.getElementById("statusText").textContent = "No recognized text to submit!";
+            }
+        };
+
+    </script>
+
+</form>
+{% endblock %}
