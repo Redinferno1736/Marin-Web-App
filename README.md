@@ -108,4 +108,3 @@ To deploy the app on **Render**:
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/your-username/marin-web-app.git
-   cd marin-web-app
