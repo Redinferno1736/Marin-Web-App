@@ -2,7 +2,7 @@ Flask==2.3.2
 Flask-Session==0.5.0
 requests==2.31.0
 Werkzeug==2.3.7
-youtubesearchpython==2023.11.2
+youtube-search-python==1.6.6
 screen-brightness-control==0.9.0
 pycaw==2023.8.30
 comtypes==1.2.0
