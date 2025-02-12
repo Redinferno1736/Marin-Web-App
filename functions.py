@@ -2,6 +2,7 @@ import webbrowser
 from youtubesearchpython import VideosSearch
 import os
 import platform
+import httpx
 
 # Platform-specific imports and setup
 if platform.system() == "Windows":
@@ -33,10 +34,14 @@ def search(text):
     webbrowser.open(url)
 
 
+class CustomVideosSearch(VideosSearch):
+    def syncPostRequest(self):
+        # Make a POST request without the proxies argument
+        return httpx.post(self.url, json=self.payload, headers=self.headers)
+
 def play(text):
-    """Play a YouTube video."""
     t = text.replace("play", "").strip()
-    search = VideosSearch(t, limit=1)
+    search = CustomVideosSearch(t, limit=1)
     results = search.result()
 
     if results and "result" in results and len(results["result"]) > 0:
